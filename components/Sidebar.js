@@ -13,7 +13,7 @@ function Sidebar() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="text-gray-500 p-5 text-sm border-r border-gray-900">
+    <div className="text-gray-500 p-5 text-sm border-r border-gray-900 overflow-y-scroll hide-scrollbar h-screen">
       <div className="space-y-4">
         <button
           className="flex items-center space-x-2 hover:text-white"
@@ -58,6 +58,11 @@ function Sidebar() {
         <p className="cursor-pointer hover:text-white">Playlist name...</p>
         <p className="cursor-pointer hover:text-white">Playlist name...</p>
         <p className="cursor-pointer hover:text-white">Playlist name...</p>
+        <p className="cursor-pointer hover:text-white">Playlist name...</p>
+        <p className="cursor-pointer hover:text-white">Playlist name...</p>
+        <p className="cursor-pointer hover:text-white">Playlist name...</p>
+        <p className="cursor-pointer hover:text-white">Playlist name...</p>
+
         <p className="cursor-pointer hover:text-white">Playlist name...</p>
         <p className="cursor-pointer hover:text-white">Playlist name...</p>
         <p className="cursor-pointer hover:text-white">Playlist name...</p>
