@@ -49,7 +49,10 @@ const Center = () => {
     <div className="flex-grow h-screen overflow-y-scroll hide-scrollbar text-white">
       <header className="absolute top-5 right-8">
         {/* TODO: add nav arrows by the left */}
-        <div className="w-max h-max rounded-full p-1 pr-2 bg-black cursor-pointer opacity-90 hover:opacity-80 space-x-3 px-1 flex items-center" onClick={signOut()}>
+        <div
+          className="w-max h-max rounded-full p-1 pr-2 bg-black cursor-pointer opacity-90 hover:opacity-80 space-x-3 px-1 flex items-center"
+          onClick={() => signOut()}
+        >
           <img
             src={session?.user.image}
             alt="user image"
