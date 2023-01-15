@@ -1,9 +1,14 @@
 import { getProviders, signIn } from "next-auth/react";
+import Head from "next/head";
 
 function Login({ providers }) {
   // console.log(providers);
   return (
     <div className="bg-black flex flex-col items-center justify-center min-h-screen w-full">
+      <Head>
+        <title>Login to my spotify clone</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <img
         className="w-52 mb-5"
         src="https://links.papareact.com/9xl"
