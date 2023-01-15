@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import useSpotify from "../hooks/useSpotify";
 import { useRecoilState } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useSongInfo from "../hooks/useSongInfo";
 import {
   RewindIcon,
@@ -17,6 +17,7 @@ import {
   HeartIcon,
   VolumeUpIcon as VolumeDownIcon,
 } from "@heroicons/react/outline";
+import { debounce } from "lodash";
 
 const Player = () => {
   const spotifyApi = useSpotify();
@@ -47,9 +48,22 @@ const Player = () => {
     }
   }, [currentTrackId, spotifyApi, session]);
 
+  useEffect(() => {
+    if (volume > 0 && volume < 100) {
+      debounceAdjustVolume(volume);
+    }
+  }, [volume]);
+
+  const debounceAdjustVolume = useCallback(
+    debounce((volume) => {
+      spotifyApi.setVolume(volume).catch((error) => {});
+    }, 300),
+    []
+  );
+
   const handlePlayPause = () => {
     spotifyApi.getMyCurrentPlaybackState().then((data) => {
-      if (data.body.is_playing) {
+      if (data.body?.is_playing) {
         spotifyApi.pause();
         setIsPlaying(false);
       } else {
@@ -84,6 +98,28 @@ const Player = () => {
         )}
         <FastForwardIcon className="icons" />
         <RefreshIcon className="icons" />
+      </div>
+      {/* right */}
+      <div className="flex items-center space-x-3 md:space-x-4 justify-end pr-5">
+        <VolumeDownIcon
+          onClick={() => volume > 0 && setVolume(volume - 10)}
+          className="icons"
+        />
+        <input
+          type="range"
+          name="volume"
+          onChange={(e) => {
+            setVolume(Number(e.target.value));
+          }}
+          value={volume}
+          min={0}
+          max={100}
+          className="w-14 md:w-28"
+        />
+        <VolumeUpIcon
+          onClick={() => volume < 100 && setVolume(volume + 10)}
+          className="icons"
+        />
       </div>
     </div>
   );
